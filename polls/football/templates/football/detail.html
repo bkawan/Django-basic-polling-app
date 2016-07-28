@@ -1,0 +1,29 @@
+{% extends 'football/master.html' %}
+
+
+{% block title %} {{ question.question_text }} {% endblock %}
+
+{% block content %}
+        <div class="alert alert-info">
+
+<h3>
+{% if question %}{{ question.question_text }} {% endif %}
+</h3>
+        </div>
+
+{% if error_message %}
+    <div class="alert alert-danger">
+  <strong>Danger!</strong> {{ error_message  }}.
+</div>
+ {% endif %}
+    <div class="">
+<form class="" action="{% url 'football:vote' question.id%}" method="post" role="form" style="background-color: whitesmoke;padding-left: 100px">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice-{{ forloop.counter }}" value="{{ choice.id }}"/>
+        <label for="choice-{{ forloop.counter}}">{{ choice.choice_text }}</label><br/>
+    {% endfor %}
+    <input class="btn btn-success btn-sm" type="submit" value="Vote"/>
+</form>
+    </div>
+{% endblock %}

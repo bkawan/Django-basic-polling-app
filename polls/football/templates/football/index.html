@@ -1,0 +1,33 @@
+{% extends 'football/master.html' %}
+
+
+{% block title %} Football Polling {% endblock %}
+
+
+{% block content %}
+    <div class="alert alert-info">
+    <h1> Latest Polls </h1>
+</div>
+    {% if latest_question_list %}
+        <div>
+    <table class="table table-hover table-striped table-responsive">
+
+     <tr class="success">
+            <th>Poll Title</th>
+            <th>Published Date</th>
+        </tr>
+            {% for question in latest_question_list %}
+                    <tr style="background-color:whitesmoke">
+
+                <td><a href="{% url 'football:detail' question.id %}">{{ question.question_text }}</a></td>
+                        <td>{{ question.pub_date }}</td>
+                    </tr>
+
+            {% endfor %}
+        </table>
+        </div>
+    {% else %}
+        <p>No Football Polls are available.</p>
+    {% endif %}
+
+{% endblock %}
